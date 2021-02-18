@@ -74,3 +74,9 @@ export const SPORTS = [
         title: 'Shoes'
     },
 ]
+
+export const TRAVEL = [
+    {
+        
+    }
+]

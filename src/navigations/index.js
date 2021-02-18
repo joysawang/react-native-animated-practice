@@ -4,6 +4,8 @@ import { createStackNavigator } from '@react-navigation/stack'
 import { createSharedElementStackNavigator } from 'react-navigation-shared-element'
 import { Easing } from 'react-native'
 
+import { cardFade } from './transition'
+
 import MenuPracticeScreen from './../screens/Menu/Practice'
 
 import SportListScreen from '../screens/Sport/List'
@@ -24,29 +26,7 @@ const SportNavigation = () => {
                 component={SportDetailScreen}
                 options={{
                     gestureEnabled: false,
-                    transitionSpec: {
-                        open: {
-                            animation: "timing",
-                            config: {
-                                duration: 500,
-                                easing: Easing.inOut(Easing.ease)
-                            }
-                        },
-                        close: {
-                            animation: "timing",
-                            config: {
-                                duration: 500,
-                                easing: Easing.inOut(Easing.ease)
-                            }
-                        }
-                    },
-                    cardStyleInterpolator: ({ current: { progress } }) => {
-                        return {
-                            cardStyle: {
-                                opacity: progress
-                            }
-                        }
-                    }
+                    ...cardFade(500)
                 }}
             />
         </StackSport.Navigator>
@@ -60,7 +40,14 @@ const RootNavigation = () => {
             headerMode="none"
         >
             <RootStack.Screen name="MenuPractice" component={MenuPracticeScreen} />
-            <RootStack.Screen name="Sport" component={SportNavigation} />
+            <RootStack.Screen
+                name="Sport"
+                component={SportNavigation}
+                options={{
+                    gestureEnabled: false,
+                    ...cardFade(300)
+                }}
+            />
         </RootStack.Navigator>
     )
 }
