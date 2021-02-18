@@ -5,7 +5,7 @@ import { SharedElement } from 'react-navigation-shared-element';
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 import { SPORTS } from './../../config/data'
-import BackIcon from '../../components/Icon/Back'
+import BackIcon from './../../components/Icon/Back'
 
 const { width, height } = Dimensions.get('window')
 const ITEM_PER_ROW = 6
@@ -158,11 +158,7 @@ const SportDetail = ({ navigation, route }) => {
 }
 
 SportDetail.sharedElements = (route, otherRoute, showing) => {
-    return SPORTS.map((item) => (
-        {
-            id: `item.${item.id}.icon`
-        }
-    ))
+    return SPORTS.map((item) => `item.${item.id}.icon`)
 }
 
 export default SportDetail
