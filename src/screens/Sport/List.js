@@ -3,6 +3,7 @@ import { StyleSheet, Text, TouchableOpacity, View, Dimensions } from 'react-nati
 import FastImage from 'react-native-fast-image';
 import { SharedElement } from 'react-navigation-shared-element'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import * as Animatable from 'react-native-animatable'
 
 import { SPORTS } from '../../config/data'
 import BackIcon from './../../components/Icon/Back'
@@ -16,22 +17,28 @@ const ICON_HEIGHT = ICON_WIDTH
 const SportList = ({ navigation, route }) => {
     const { title } = route.params
 
-    const renderSportItem = useCallback((item) => {
+    const renderSportItem = useCallback((item, index) => {
         return (
-            <TouchableOpacity
+            <Animatable.View
                 key={`sport_${item.id}`}
-                style={{
-                    padding: SPACING
-                }}
-                onPress={() => requestAnimationFrame(() => navigation.navigate('SportDetail', { item }))}
+                animation="fadeInRight"
+                duration={100}
+                delay={400 + (index * 50)}
             >
-                <SharedElement id={`item.${item.id}.icon`}>
-                    <FastImage
-                        source={{ uri: item.image }}
-                        style={{ width: ICON_WIDTH, height: ICON_HEIGHT }}
-                    />
-                </SharedElement>
-            </TouchableOpacity>
+                <TouchableOpacity
+                    style={{
+                        padding: SPACING
+                    }}
+                    onPress={() => requestAnimationFrame(() => navigation.navigate('SportDetail', { item }))}
+                >
+                    <SharedElement id={`item.${item.id}.icon`}>
+                        <FastImage
+                            source={{ uri: item.image }}
+                            style={{ width: ICON_WIDTH, height: ICON_HEIGHT }}
+                        />
+                    </SharedElement>
+                </TouchableOpacity>
+            </Animatable.View>
         )
     }, [])
 
